@@ -1,0 +1,142 @@
+{
+    "name": "GeneralInput",
+    "maps": [
+        {
+            "name": "KeyboardInput",
+            "id": "26dc67bc-c9ec-4734-a71d-c59fd10b2531",
+            "actions": [
+                {
+                    "name": "ForwardBackwardMovement",
+                    "type": "Button",
+                    "id": "0523ccc4-ac01-47ea-8b9a-c2933024fcd2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "SidewaysMovement",
+                    "type": "Button",
+                    "id": "520c42e7-c1d3-47bb-a4f8-b023ee4bbe70",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "ForwardBackward",
+                    "id": "db839a80-1078-443d-a0f6-5d473b69720e",
+                    "path": "1DAxis",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ForwardBackwardMovement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "0d26b59e-3f3b-4de3-a850-bf73ced38bca",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ForwardBackwardMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "7ddba581-49dd-421d-876f-7b79f4ef3e9e",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ForwardBackwardMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "SidewaysMovement",
+                    "id": "196c6abf-1ae2-47f2-ae06-05c1d0c9a097",
+                    "path": "1DAxis",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SidewaysMovement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Negative",
+                    "id": "80f300f5-d97e-4fda-94c8-61be67f15759",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SidewaysMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Positive",
+                    "id": "065932b8-7174-4aa4-9794-0f7a60ef197c",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SidewaysMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "MouseInput",
+            "id": "722d90fa-2901-477c-906b-9ff809b25758",
+            "actions": [
+                {
+                    "name": "VerticalLook",
+                    "type": "Value",
+                    "id": "66e36a99-15fb-46cc-a3a7-ad0cbdf1fcd8",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "HorizontalLook",
+                    "type": "Value",
+                    "id": "01e35c8e-a372-495f-88a3-fae564e5311b",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "91ee8c09-6853-4fea-92e7-58bea28135f0",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0184a8c9-16db-4c15-9f65-5ad5dac92e34",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HorizontalLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
