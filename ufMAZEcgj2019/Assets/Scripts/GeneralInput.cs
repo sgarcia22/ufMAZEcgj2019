@@ -32,6 +32,14 @@ public class GeneralInput : IInputActionCollection
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""681ed2b2-7fde-4da2-9cc8-b38501a3b5b1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
                 }
             ],
             ""bindings"": [
@@ -100,6 +108,17 @@ public class GeneralInput : IInputActionCollection
                     ""action"": ""SidewaysMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""996a09b5-da03-4b8c-9da0-c65eeb1cc97f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -156,6 +175,7 @@ public class GeneralInput : IInputActionCollection
         m_KeyboardInput = asset.GetActionMap("KeyboardInput");
         m_KeyboardInput_ForwardBackwardMovement = m_KeyboardInput.GetAction("ForwardBackwardMovement");
         m_KeyboardInput_SidewaysMovement = m_KeyboardInput.GetAction("SidewaysMovement");
+        m_KeyboardInput_Jump = m_KeyboardInput.GetAction("Jump");
         // MouseInput
         m_MouseInput = asset.GetActionMap("MouseInput");
         m_MouseInput_VerticalLook = m_MouseInput.GetAction("VerticalLook");
@@ -211,12 +231,14 @@ public class GeneralInput : IInputActionCollection
     private IKeyboardInputActions m_KeyboardInputActionsCallbackInterface;
     private readonly InputAction m_KeyboardInput_ForwardBackwardMovement;
     private readonly InputAction m_KeyboardInput_SidewaysMovement;
+    private readonly InputAction m_KeyboardInput_Jump;
     public struct KeyboardInputActions
     {
         private GeneralInput m_Wrapper;
         public KeyboardInputActions(GeneralInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @ForwardBackwardMovement => m_Wrapper.m_KeyboardInput_ForwardBackwardMovement;
         public InputAction @SidewaysMovement => m_Wrapper.m_KeyboardInput_SidewaysMovement;
+        public InputAction @Jump => m_Wrapper.m_KeyboardInput_Jump;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -232,6 +254,9 @@ public class GeneralInput : IInputActionCollection
                 SidewaysMovement.started -= m_Wrapper.m_KeyboardInputActionsCallbackInterface.OnSidewaysMovement;
                 SidewaysMovement.performed -= m_Wrapper.m_KeyboardInputActionsCallbackInterface.OnSidewaysMovement;
                 SidewaysMovement.canceled -= m_Wrapper.m_KeyboardInputActionsCallbackInterface.OnSidewaysMovement;
+                Jump.started -= m_Wrapper.m_KeyboardInputActionsCallbackInterface.OnJump;
+                Jump.performed -= m_Wrapper.m_KeyboardInputActionsCallbackInterface.OnJump;
+                Jump.canceled -= m_Wrapper.m_KeyboardInputActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_KeyboardInputActionsCallbackInterface = instance;
             if (instance != null)
@@ -242,6 +267,9 @@ public class GeneralInput : IInputActionCollection
                 SidewaysMovement.started += instance.OnSidewaysMovement;
                 SidewaysMovement.performed += instance.OnSidewaysMovement;
                 SidewaysMovement.canceled += instance.OnSidewaysMovement;
+                Jump.started += instance.OnJump;
+                Jump.performed += instance.OnJump;
+                Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -291,6 +319,7 @@ public class GeneralInput : IInputActionCollection
     {
         void OnForwardBackwardMovement(InputAction.CallbackContext context);
         void OnSidewaysMovement(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
     public interface IMouseInputActions
     {

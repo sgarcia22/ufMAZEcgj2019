@@ -14,12 +14,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float verticalCameraSensitivity = 2f;
     [SerializeField] private float minCameraAngle = -120f;
     [SerializeField] private float maxCameraAngle = 120f;
+    [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private Rigidbody rigidBody;
 
     public void Awake()
     {
         controls = new GeneralInput();
         mainCamera = transform.GetComponentInChildren<Camera>();
+        rigidBody = transform.GetComponentInChildren<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -38,6 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         controls.KeyboardInput.ForwardBackwardMovement.performed += ForwardBackwardMovementInput;
         controls.KeyboardInput.SidewaysMovement.performed += SidewaysMovementInput;
+        controls.KeyboardInput.Jump.performed += PlayerJump;
         controls.KeyboardInput.Enable();
 
         controls.MouseInput.VerticalLook.performed += VerticalLookInput;
@@ -48,14 +52,13 @@ public class PlayerController : MonoBehaviour
     public void OnDisable()
     {
         controls.KeyboardInput.ForwardBackwardMovement.performed -= ForwardBackwardMovementInput;
-        controls.KeyboardInput.ForwardBackwardMovement.Disable();
         controls.KeyboardInput.SidewaysMovement.performed -= SidewaysMovementInput;
-        controls.KeyboardInput.SidewaysMovement.Disable();
+        controls.KeyboardInput.Jump.performed -= PlayerJump;
+        controls.KeyboardInput.Disable();
 
         controls.MouseInput.VerticalLook.performed -= VerticalLookInput;
-        controls.MouseInput.VerticalLook.Disable();
         controls.MouseInput.HorizontalLook.performed -= HorizontalLookInput;
-        controls.MouseInput.HorizontalLook.Disable();
+        controls.MouseInput.Disable();
     }
 
     private void PlayerMovement()
@@ -63,8 +66,6 @@ public class PlayerController : MonoBehaviour
         Vector3 appliedMovement = Vector3.zero;
         appliedMovement += transform.forward * movementSpeed * Time.deltaTime * move.y;
         appliedMovement += transform.right * movementSpeed * Time.deltaTime * move.x;
-        // Remove comment if we want gravity.
-        // appliedMovement += Physics.gravity;
         transform.Translate(appliedMovement, Space.World);
     }
 
@@ -101,5 +102,10 @@ public class PlayerController : MonoBehaviour
     private void SidewaysMovementInput(InputAction.CallbackContext ctx)
     {
         move.x = ctx.ReadValue<float>();
+    }
+
+    private void PlayerJump(InputAction.CallbackContext ctx)
+    {
+        rigidBody.AddForce(new Vector3(0f, jumpHeight, 0f));
     }
 }
