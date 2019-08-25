@@ -48,12 +48,14 @@ public class PlayerController : MonoBehaviour
     public void OnDisable()
     {
         controls.KeyboardInput.ForwardBackwardMovement.performed -= ForwardBackwardMovementInput;
+        controls.KeyboardInput.ForwardBackwardMovement.Disable();
         controls.KeyboardInput.SidewaysMovement.performed -= SidewaysMovementInput;
-        controls.KeyboardInput.Disable();
+        controls.KeyboardInput.SidewaysMovement.Disable();
 
         controls.MouseInput.VerticalLook.performed -= VerticalLookInput;
+        controls.MouseInput.VerticalLook.Disable();
         controls.MouseInput.HorizontalLook.performed -= HorizontalLookInput;
-        controls.MouseInput.Disable();
+        controls.MouseInput.HorizontalLook.Disable();
     }
 
     private void PlayerMovement()
@@ -70,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         float rotateAngle = look.x * Time.deltaTime * horizontalCameraSensitivity;
         transform.Rotate(transform.up, rotateAngle);
+        look.x = 0f;
     }
 
     private void PlayerCameraUpdate()
@@ -77,6 +80,7 @@ public class PlayerController : MonoBehaviour
         cameraAngle += look.y * Time.deltaTime * verticalCameraSensitivity;
         cameraAngle = Mathf.Clamp(cameraAngle, minCameraAngle, maxCameraAngle);
         mainCamera.transform.localEulerAngles = new Vector3(-cameraAngle, 0f, 0f);
+        look.y = 0f;
     }
 
     private void VerticalLookInput(InputAction.CallbackContext ctx)

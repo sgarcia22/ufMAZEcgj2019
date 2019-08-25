@@ -155,8 +155,8 @@ MonoBehaviour:
   movementSpeed: 10
   horizontalCameraSensitivity: 4
   verticalCameraSensitivity: 2
-  minCameraAngle: -120
-  maxCameraAngle: 120
+  minCameraAngle: -85
+  maxCameraAngle: 85
   mainCamera: {fileID: 1787245192}
 --- !u!136 &179158973
 CapsuleCollider:
