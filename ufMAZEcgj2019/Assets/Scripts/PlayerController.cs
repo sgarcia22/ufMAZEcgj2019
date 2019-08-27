@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 move;
     private Vector2 look;
     private float cameraAngle = 0f;
+    private Interactable interactableWithinReach;
 
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float horizontalCameraSensitivity = 4f;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         controls = new GeneralInput();
         mainCamera = transform.GetComponentInChildren<Camera>();
         rigidBody = transform.GetComponentInChildren<Rigidbody>();
+        interactableWithinReach = null;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -42,6 +44,7 @@ public class PlayerController : MonoBehaviour
         controls.KeyboardInput.ForwardBackwardMovement.performed += ForwardBackwardMovementInput;
         controls.KeyboardInput.SidewaysMovement.performed += SidewaysMovementInput;
         controls.KeyboardInput.Jump.performed += PlayerJump;
+        controls.KeyboardInput.Interact.performed += PlayerInteract;
         controls.KeyboardInput.Enable();
 
         controls.MouseInput.VerticalLook.performed += VerticalLookInput;
@@ -54,11 +57,25 @@ public class PlayerController : MonoBehaviour
         controls.KeyboardInput.ForwardBackwardMovement.performed -= ForwardBackwardMovementInput;
         controls.KeyboardInput.SidewaysMovement.performed -= SidewaysMovementInput;
         controls.KeyboardInput.Jump.performed -= PlayerJump;
+        controls.KeyboardInput.Interact.performed -= PlayerInteract;
         controls.KeyboardInput.Disable();
 
         controls.MouseInput.VerticalLook.performed -= VerticalLookInput;
         controls.MouseInput.HorizontalLook.performed -= HorizontalLookInput;
         controls.MouseInput.Disable();
+    }
+
+    public void setInteractableWithinReach(Interactable interactable)
+    {
+        interactableWithinReach = interactable;
+    }
+
+    public void removeInteractableWithinReach(Interactable interactable)
+    {
+        if(interactableWithinReach = interactable)
+        {
+            interactableWithinReach = null;
+        }
     }
 
     private void PlayerMovement()
@@ -67,6 +84,14 @@ public class PlayerController : MonoBehaviour
         appliedMovement += transform.forward * movementSpeed * Time.deltaTime * move.y;
         appliedMovement += transform.right * movementSpeed * Time.deltaTime * move.x;
         transform.Translate(appliedMovement, Space.World);
+    }
+
+    private void PlayerInteract(InputAction.CallbackContext ctx)
+    {
+        if (interactableWithinReach != null)
+        {
+            interactableWithinReach.Interact();
+        }
     }
 
     private void PlayerRotationUpdate()
