@@ -905,9 +905,10 @@ MonoBehaviour:
   radius: 3
   player: {fileID: 179158971}
   interactionPrompt: {fileID: 1180492105}
-  door: {fileID: 1071996302}
+  moveableObject: {fileID: 1071996302}
   translationToApply: {x: 0, y: 5, z: 0}
   rotationToApply: {x: 0, y: 0, z: 0}
+  moved: 0
 --- !u!1 &1743580663
 GameObject:
   m_ObjectHideFlags: 0

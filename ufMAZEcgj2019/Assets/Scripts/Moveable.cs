@@ -9,7 +9,7 @@ public class Moveable : Interactable
     [SerializeField] private float radius = 3f;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject interactionPrompt;
-    [SerializeField] private GameObject door;
+    [SerializeField] private GameObject moveableObject;
     [SerializeField] private Vector3 translationToApply;
     [SerializeField] private Vector3 rotationToApply;
     [SerializeField] private bool moved = false;
@@ -44,13 +44,13 @@ public class Moveable : Interactable
         // Toggles the current interaction.
         if (moved)
         {
-            door.transform.Translate(-1 * translationToApply);
-            door.transform.Rotate(-1 * rotationToApply);
+            moveableObject.transform.Translate(-1 * translationToApply);
+            moveableObject.transform.Rotate(-1 * rotationToApply);
         }
         else
         {
-            door.transform.Translate(translationToApply);
-            door.transform.Rotate(rotationToApply);
+            moveableObject.transform.Translate(translationToApply);
+            moveableObject.transform.Rotate(rotationToApply);
         }
         moved = !moved;
     }
