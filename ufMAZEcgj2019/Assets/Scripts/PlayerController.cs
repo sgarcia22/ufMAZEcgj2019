@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private float cameraAngle = 0f;
     private Interactable interactableWithinReach;
 
+    public bool alive;
+
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private float horizontalCameraSensitivity = 4f;
     [SerializeField] private float verticalCameraSensitivity = 2f;
@@ -26,10 +28,14 @@ public class PlayerController : MonoBehaviour
         rigidBody = transform.GetComponentInChildren<Rigidbody>();
         interactableWithinReach = null;
         Cursor.lockState = CursorLockMode.Locked;
+        alive = true;
     }
 
     public void Update()
     {
+        if (!alive)
+            return;
+
         if (move != Vector2.zero)
         {
             PlayerMovement();
@@ -132,5 +138,15 @@ public class PlayerController : MonoBehaviour
     private void PlayerJump(InputAction.CallbackContext ctx)
     {
         rigidBody.AddForce(new Vector3(0f, jumpHeight, 0f));
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag == "Enemy")
+        {
+            alive = false;
+            Debug.Log("Rip Player");
+            //TODO: Game Over Here
+        }
     }
 }
